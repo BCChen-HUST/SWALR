@@ -127,11 +127,10 @@ def plot_clusters(X, cluster_ids, centroids):
 
     plt.figure(figsize=(10, 8))
 
-    # 使用更快的散点图绘制方法
     scatter = plt.scatter(X[:, 0], X[:, 1], c=cluster_ids, cmap='tab10',
                          s=10, alpha=0.6, marker='.')
 
-    # 绘制质心
+   
     plt.scatter(centroids[:, 0], centroids[:, 1], c='black', marker='x',
                s=200, linewidths=3, label='Centroids')
 
@@ -152,7 +151,7 @@ if __name__ == "__main__":
         num_clusters = i
         device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
-        kmeans_gpu = KMeansGPU(num_clusters= num_clusters, max_iter=100, random_state=2025, device=device)  # 'cuda' 表示使用 GPU
+        kmeans_gpu = KMeansGPU(num_clusters= num_clusters, max_iter=100, random_state=2025, device=device) 
         labels, cluster_centers = kmeans_gpu.fit(X)
         labels= labels.cpu().numpy()
         cluster_centers= cluster_centers.cpu().numpy()
@@ -161,4 +160,5 @@ if __name__ == "__main__":
         print("Labels:\n", labels)
 
         plot_clusters(X, labels, cluster_centers)
+
 
